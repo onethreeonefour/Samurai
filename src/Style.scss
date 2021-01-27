@@ -1,19 +1,28 @@
+@font-face {
+  font-family: "Monument";
+  src: url("./fonts/Monument/MonumentExtended-Regular.otf");
+}
+@font-face {
+  font-family: "Monument-Bold";
+  src: url("./fonts/Monument/MonumentExtended-Ultrabold.otf");
+}
+
 *,
 *::after,
 *::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-	text-decoration: none;
+  text-decoration: none;
 }
 body {
-	background: #000;
-	font-family: "Oswald", sans-serif;
+  background: #000;
+  font-family: "Monument";
 }
 .hero-container {
-	display: flex;
-	height: 100vh;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
