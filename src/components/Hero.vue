@@ -5,6 +5,7 @@
 				<h1>&lt; System rebooting &gt;</h1>
 				<h3>Hydra Ver 2.1 Sys Recovery</h3>
 				<h3>Process: {{ progress }}%</h3>
+				<div id="progress-bar"></div>
 			</div>
 		</div>
 		<div class="hero-secondary-anim">
@@ -34,47 +35,78 @@ export default {
 	},
 	methods: {
 		onImgLoad() {
-			this.isLoaded = true;
+			this.progressBar();
+		},
+		progressBar() {
+			const el = document.getElementById("progress-bar");
+			let width = 1;
+			let id = setInterval(() => {
+				if (width >= 100) {
+					clearInterval(id);
+					this.animateIntro();
+				} else {
+					this.progress++;
+					width++;
+					el.style.width = width + "%";
+				}
+			}, 30);
+		},
+		animateIntro() {
+			gsap
+				.timeline()
+				.to(".hydra", 1.5, {
+					autoAlpha: 0,
+					display: "none",
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.to(".hero-secondary-anim", 0.7, {
+					display: "flex",
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.from(".anim-text-1", 1.5, {
+					autoAlpha: 0,
+					y: 100,
+					stagger: 0.5,
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.from(".anim-text-2", 1.5, {
+					autoAlpha: 0,
+					y: -100,
+					stagger: 0.5,
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.to(".text-container", 1.5, {
+					delay: 1.25,
+					display: "none",
+					autoAlpha: 0,
+					y: -200,
+					stagger: 0.5,
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.to(".samurai", 0.25, {
+					display: "block",
+					ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+				})
+				.from(".hero-final-anim", 1.5, {
+					autoAlpha: 0,
+					y: -100,
+					ease: "back",
+				});
 		},
 	},
 	mounted() {
 		//animations
-		gsap
-			.timeline()
-			.from(".anim-text-1", 1.5, {
-				autoAlpha: 0,
-				y: 100,
-				stagger: 0.5,
-				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
-			})
-			.from(".anim-text-2", 1.5, {
-				autoAlpha: 0,
-				y: -100,
-				stagger: 0.5,
-				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
-			})
-			.to(".text-container", 1.5, {
-				delay: 1.25,
-				display: "none",
-				autoAlpha: 0,
-				y: -200,
-				stagger: 0.5,
-				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
-			})
-			.to(".samurai", 0.25, {
-				display: "block",
-				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
-			})
-			.from(".hero-final-anim", 1.5, {
-				autoAlpha: 0,
-				y: -100,
-				ease: "back",
-			});
 	},
 };
 </script>
 
 <style lang="scss" scoped>
+#progress-bar {
+	margin-top: 1rem;
+	width: 1%;
+	height: 30px;
+	background-color: red;
+}
 .hero-initial-anim {
 	display: flex;
 	height: 100vh;
@@ -90,6 +122,7 @@ export default {
 	}
 }
 .hero-secondary-anim {
+	display: none;
 	div {
 		display: inline-block;
 	}
