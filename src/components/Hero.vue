@@ -1,35 +1,46 @@
 <template>
 	<div class="hero-container">
-		<div class="hero-text">
-			<div class="text-container" ref="box">
-				<div>
-					<div class="glitch anim-text-1" data-text="wake the">wake the</div>
-					<div class="glitch anim-text-1" data-text="fuck up">fuck up</div>
-					<div class="glitch anim-text-1" data-text="samurai">samurai</div>
-				</div>
-				<div class="right">
-					<div class="glitch anim-text-2" data-text="we have">we have</div>
-					<div class="glitch anim-text-2" data-text="a city">a city</div>
-					<div class="glitch anim-text-2" data-text="to burn">to burn</div>
-				</div>
-				<div class="cta">
-					<a href="#"> Join The Fight </a>
-				</div>
+		<div class="hero-initial-anim">
+			<div class="hydra">
+				<h1>&lt; System rebooting &gt;</h1>
+				<h3>Hydra Ver 2.1 Sys Recovery</h3>
+				<h3>Process: {{ progress }}%</h3>
 			</div>
+		</div>
+		<div class="hero-secondary-anim">
+			<div class="text-container">
+				<div class="glitch anim-text-1" data-text="wake the">wake the&#160;</div>
+				<div class="glitch anim-text-1" data-text="fuck up">fuck up,&#160;</div>
+				<div class="glitch anim-text-1" data-text="samurai">samurai</div>
+				<br />
+				<div class="glitch anim-text-2" data-text="we have">we have&#160;</div>
+				<div class="glitch anim-text-2" data-text="a city">a city&#160;</div>
+				<div class="glitch anim-text-2" data-text="to burn">to burn</div>
+			</div>
+		</div>
+		<div class="hero-final-anim">
+			<img src="../assets/Samurai.gif" alt="samurai" class="samurai" @load="onImgLoad" />
 		</div>
 	</div>
 </template>
 <script>
 import { gsap } from "gsap";
 export default {
+	data() {
+		return {
+			isLoaded: false,
+			progress: 0,
+		};
+	},
+	methods: {
+		onImgLoad() {
+			this.isLoaded = true;
+		},
+	},
 	mounted() {
+		//animations
 		gsap
 			.timeline()
-			.from(".hero-container", 2, {
-				autoAlpha: 0,
-				height: 0,
-				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
-			})
 			.from(".anim-text-1", 1.5, {
 				autoAlpha: 0,
 				y: 100,
@@ -42,24 +53,56 @@ export default {
 				stagger: 0.5,
 				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
 			})
-			.from(".cta", 1.5, {
+			.to(".text-container", 1.5, {
+				delay: 1.25,
+				display: "none",
 				autoAlpha: 0,
-				x: 200,
+				y: -200,
 				stagger: 0.5,
 				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+			})
+			.to(".samurai", 0.25, {
+				display: "block",
+				ease: "rough({ template: none.out, strength: 1, points: 20, taper: 'none', randomize: true, clamp: false})",
+			})
+			.from(".hero-final-anim", 1.5, {
+				autoAlpha: 0,
+				y: -100,
+				ease: "back",
 			});
 	},
 };
 </script>
 
 <style lang="scss" scoped>
-.hero-text {
-	z-index: 500;
-	text-transform: uppercase;
+.hero-initial-anim {
 	display: flex;
 	height: 100vh;
+	justify-content: center;
 	align-items: center;
+	color: red;
+	text-transform: uppercase;
+	.hydra {
+		text-align: center;
+		border: 4px solid red;
+		padding: 3rem 5rem;
+		font-family: "Dosis", sans-serif;
+	}
+}
+.hero-secondary-anim {
+	div {
+		display: inline-block;
+	}
+	text-transform: uppercase;
 	padding: 2rem;
+}
+.hero-final-anim {
+	img {
+		object-fit: cover;
+		display: none;
+		width: 50vw;
+		height: 100%;
+	}
 }
 
 .glitch {
@@ -68,31 +111,6 @@ export default {
 	position: relative;
 	margin: 0 auto;
 	font-weight: bolder;
-}
-.text-container {
-	display: inline;
-	width: 100%;
-	.right {
-		float: right;
-	}
-}
-.cta {
-	position: absolute;
-	bottom: 25%;
-	a {
-		background: #000;
-		border: 4px solid red;
-		padding: 2rem 3rem;
-		display: block;
-		font-weight: bolder;
-		color: red;
-		font-size: 1.2rem;
-		transition: ease-in-out 0.4s all;
-	}
-	a:hover {
-		background: red;
-		color: #000;
-	}
 }
 
 @keyframes noise-anim {

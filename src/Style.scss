@@ -12,8 +12,8 @@ body {
 	font-family: "Oswald", sans-serif;
 }
 .hero-container {
+	display: flex;
 	height: 100vh;
-	background: url("./assets/Samurai.gif") no-repeat;
-	background-position: center center;
-	background-size: contain;
+	align-items: center;
+	justify-content: center;
 }
