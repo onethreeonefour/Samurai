@@ -24,21 +24,46 @@
       <img src="../assets/Samurai-text.png" alt="samurai-txt" class="samurai samurai-text" />
       <div class="cta-container">
         <div class="cta-left">
-          <div class="glitch " data-text="fight">fight&#160;</div>
-          <div class="glitch" data-text="back">back&#160;</div>
-          <div class="glitch" data-text="samurai">samurai&#160;</div>
+          <div class="glitch anim-text-3" data-text="fight">fight&#160;</div>
+          <div class="glitch anim-text-3" data-text="back">back&#160;</div>
+          <div class="glitch anim-text-3" data-text="samurai">samurai&#160;</div>
+        </div>
+        <div class="cta-right">
+          <svg width="175" height="175" viewBox="0 0 102 109" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M46.7293 1V91.4703L7.09724 51.6561L1 57.7813L50.9909 108L51.0004 107.99L51.0091 108L101 57.7813L94.9036 51.6561L55.3509 91.3898V1H46.7293Z"
+              stroke="#FF0000"
+            ></path>
+          </svg>
         </div>
       </div>
     </div>
   </div>
+  <template v-if="scroll">
+    <Marquee />
+    <Store />
+    <Footer />
+  </template>
 </template>
 <script>
 import { gsap, Power2, Power3 } from "gsap";
+import Marquee from "./Marquee";
+import Store from "./Store";
+import Footer from "./Footer";
+
 export default {
+  components: {
+    Marquee,
+    Store,
+    Footer,
+  },
   data() {
     return {
       isLoaded: false,
       progress: 0,
+      scroll: false,
     };
   },
   methods: {
@@ -93,20 +118,34 @@ export default {
         })
         .to(".samurai", 0.25, {
           display: "block",
-          ease: Power2.easeIn,
+          ease: Power3.easeIn,
         })
         .from(".samurai", 1.5, {
           autoAlpha: 0,
           y: -100,
-          ease: "back",
+          ease: Power3.easeOut,
           stagger: 1.5,
         })
-        .to(".cta", 1.5, {
-          autoAlpha: 1,
+        .to(".cta-container", 0.25, {
+          display: "block",
+          ease: Power3.easeIn,
+        })
+        .from(".anim-text-3", 1.5, {
+          autoAlpha: 0,
           y: 100,
           ease: Power3.easeOut,
           stagger: 0.5,
+        })
+        .from(".cta-right", 1.5, {
+          autoAlpha: 0,
+          y: 100,
+          ease: Power3.easeOut,
+          onComplete: this.unlockScroll(),
         });
+    },
+    unlockScroll() {
+      console.log("Animation Finished");
+      this.scroll = true;
     },
   },
 };
@@ -131,10 +170,10 @@ a {
   text-transform: uppercase;
   .hydra {
     text-align: center;
-    border: 4px solid red;
+    border: 3px solid red;
     padding: 3rem 5rem;
     font-family: "Dosis", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 .hero-secondary-anim {
@@ -166,26 +205,23 @@ a {
     top: 0;
     z-index: 5000;
   }
-  .cta-container {
-    transition: opacity 0.4s;
-    img {
-      display: inline;
-      width: 400px;
-      height: auto;
-    }
-    .cta {
-      opacity: 0;
-      font-size: 4vw;
-    }
-    .cta-left {
-      transform: translateY(-50%);
-      top: 50%;
-      position: absolute;
-      left: 2rem;
-    }
+}
+.cta-container {
+  display: none;
+  .cta-left {
+    font-size: 4vw;
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
+    left: 2rem;
+  }
+  .cta-right {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    animation: float 3s ease-in-out infinite;
   }
 }
-
 .glitch {
   color: red;
   position: relative;
@@ -233,5 +269,16 @@ a {
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
   animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-27px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
 }
 </style>
