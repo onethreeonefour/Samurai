@@ -20,14 +20,13 @@
       </div>
     </div>
     <div class="hero-final-anim">
-      <img src="../assets/Samurai.gif" alt="samurai" class="samurai" @load="onImgLoad" />
+      <img src="../assets/Samurai.gif" alt="samurai" class="samurai-image samurai" @load="onImgLoad" />
       <img src="../assets/Samurai-text.png" alt="samurai-txt" class="samurai samurai-text" />
       <div class="cta-container">
         <div class="cta-left">
-          <h1 class="cta">Chippin' In</h1>
-          <h1 class="cta">Black Dog</h1>
-          <h1 class="cta">A Like Supreme</h1>
-          <h1 class="cta">Never Fade Away</h1>
+          <div class="glitch " data-text="fight">fight&#160;</div>
+          <div class="glitch" data-text="back">back&#160;</div>
+          <div class="glitch" data-text="samurai">samurai&#160;</div>
         </div>
       </div>
     </div>
@@ -114,6 +113,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  color: red;
+}
 #progress-bar {
   margin-top: 1rem;
   width: 1%;
@@ -132,6 +134,7 @@ export default {
     border: 4px solid red;
     padding: 3rem 5rem;
     font-family: "Dosis", sans-serif;
+    font-size: 1.2rem;
   }
 }
 .hero-secondary-anim {
@@ -141,6 +144,7 @@ export default {
   }
   text-transform: uppercase;
   padding: 2rem;
+  font-size: 7vw;
 }
 .hero-final-anim {
   color: red;
@@ -148,10 +152,13 @@ export default {
   text-transform: uppercase;
   img {
     display: none;
-    width: 70vw;
+    width: 60vw;
     object-fit: cover;
     max-height: 100vh;
     overflow: hidden;
+  }
+  .samurai-image {
+    height: 100vh;
   }
   .samurai-text {
     display: none;
@@ -161,10 +168,14 @@ export default {
   }
   .cta-container {
     transition: opacity 0.4s;
-    cursor: pointer;
+    img {
+      display: inline;
+      width: 400px;
+      height: auto;
+    }
     .cta {
       opacity: 0;
-      font-size: 3.5rem;
+      font-size: 4vw;
     }
     .cta-left {
       transform: translateY(-50%);
@@ -177,7 +188,6 @@ export default {
 
 .glitch {
   color: red;
-  font-size: 5rem;
   position: relative;
   margin: 0 auto;
   font-weight: bolder;
