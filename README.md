@@ -1,24 +1,5 @@
-# samurai
+# Samurai
 
-## Project setup
-```
-npm install
-```
+A VueJS web application that uses GSAP & CSS to power the animations in this website.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Mostly used to help sequence a title animation to understand newer css attributes and properties.
